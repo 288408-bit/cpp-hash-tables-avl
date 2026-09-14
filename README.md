@@ -1,36 +1,33 @@
-Miniprojekt 3
-=====================================================
+# Hash Table Performance Benchmark
 
-Zaimplementowane warianty:
-  1. Tablica mieszajaca z metoda lancuchowa (wlasna lista jednokierunkowa)
-  2. Tablica mieszajaca z drzewami AVL w kubelkach (adresowanie zamkniete)
-  3. Tablica mieszajaca z adresowaniem otwartym (probkowanie liniowe)
+A high-performance C++ benchmarking tool designed to evaluate and compare different hash table collision resolution strategies.
 
-Badane operacje: insert(), remove().
+## 🚀 Implemented Structures
+This project features three distinct custom hash table implementations:
+1. **Separate Chaining (Singly Linked List):** Classic chaining using a custom-built singly linked list structure.
+2. **Separate Chaining (AVL Tree):** Advanced collision resolution utilizing self-balancing AVL trees within buckets.
+3. **Open Addressing (Linear Probing):** Flat array structure with linear probing for collision handling.
 
-Kompilacja (CMake):
-  mkdir build
-  cd build
-  cmake -DCMAKE_BUILD_TYPE=Release ..
-  make
-  ./projekt
+## ⚙️ Features & Capabilities
+* **Interactive CLI Interface:** Allows manual execution and testing of core operations (`Insert`, `Remove`, `Find`, `Load from file`, `Generate random`, `Display`, `Clear`).
+* **Automated Benchmarking Suite:** Measures the average execution time of `insert()` and `remove()` operations across various data scales with nanosecond precision.
 
-Obsluga:
-  Menu glowne pozwala wybrac konkretna strukture (opcje 1-3) i wykonac na niej
-  operacje (dodaj/usun/znajdz/wczytaj z pliku/utworz losowo/wyswietl/wyczysc),
-  albo uruchomic komplet badan numerycznych (opcja 4).
+## 🔬 Benchmarking Methodology
+The built-in benchmark (Menu Option 4) is designed for rigorous average-case performance analysis:
+* **Data Scales:** Tests across 8 different structure sizes, ranging from 5,000 to 100,000 elements.
+* **Reproducibility:** Uses 10 fixed (deterministic) generator seeds for each dataset size. The final result is averaged across these 10 runs to approximate the average-case scenario.
+* **Isolated Measurement:** Each operation is measured on a separate, fresh copy of the structure. This ensures the structure's size remains strictly constant during the actual time measurement.
+* **Fair Comparison:** All three hash table variants are tested against the exact same input datasets.
+* **Data Export:** Results are automatically exported to CSV format (using `;` delimiter) for easy data visualization: 
+  * `results/insert_times.csv`
+  * `results/remove_times.csv`
 
-Badania:
-  Opcja 4 mierzy sredni czas operacji insert i remove w funkcji rozmiaru
-  struktury dla 8 rozmiarow (5000 ... 100000). Dla kazdego rozmiaru badanie
-  powtarzane jest dla 10 roznych, ustalonych (powtarzalnych) ziaren generatora,
-  a wynik jest usredniany (przyblizenie przypadku sredniego). Pojedyncza operacja
-  mierzona jest na osobnej kopii struktury o ustalonym rozmiarze, dzieki czemu
-  rozmiar nie zmienia sie w trakcie pomiaru. Wszystkie trzy warianty badane sa
-  na dokladnie tych samych danych wejsciowych.
+## 🛠️ Build & Run Instructions
+The project is built using CMake. A `Release` build is strongly recommended to ensure accurate performance measurements.
 
-  Wyniki zapisywane sa do plikow CSV (separator ';'):
-    results/insert_times.csv
-    results/remove_times.csv
-  Czas podawany jest w nanosekundach [ns].
-
+```bash
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+./projekt
